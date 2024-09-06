@@ -1,4 +1,6 @@
+import './index.scss'
 import TrendingBanner from "./TrendingBanner"
+
 
 const Home = () => {
     return (
