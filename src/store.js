@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import moviesSlice from './features/movies/moviesSlice.jsx'
+import trendingMoviesSlice from './features/movies/trendingMoviesSlice.jsx'
 
 export const store = configureStore({
     reducer: {
-        moviesData: moviesSlice
+        trendingMoviesData: trendingMoviesSlice
     },
 })

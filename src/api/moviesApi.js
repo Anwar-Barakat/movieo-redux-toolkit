@@ -9,5 +9,14 @@ export const fetchTrendingMovies = createAsyncThunk('movies/fetchTrendingMovies'
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data);
     }
-}
-);
+});
+
+export const fetchConfiguration = createAsyncThunk('movies/fetchConfiguration', async (_, thunkAPI) => {
+    try {
+        const response = await axios.get('/configuration');
+        return response.data; // Return the data to be handled by the extraReducers
+
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data);
+    }
+});
