@@ -21,7 +21,6 @@ const Header = () => {
         }
     }
 
-
     useEffect(() => {
         if (searchInput.length > 0) {
             navigate(`/search?q=${searchInput}`);
