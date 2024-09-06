@@ -1,0 +1,16 @@
+/* index.scss or your CSS file */
+.swiper-container {
+  width: 100%; /* Ensure Swiper takes full width */
+  overflow: hidden; /* Hide overflow */
+}
+
+.swiper-slide {
+  width: auto; /* Ensure slides take their content width */
+  flex-shrink: 0; /* Prevent shrinking */
+  min-width: 230px; /* Ensure a minimum width for the cards */
+}
+
+.card-movie {
+  width: 230px; /* Adjust based on your card width */
+  height: 80%; /* Ensure the card fits well */
+}
