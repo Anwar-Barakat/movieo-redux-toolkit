@@ -21,3 +21,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.flex__between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
