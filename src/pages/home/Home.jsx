@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import HorizontalScrollCard from '../../components/cards/HorizontalScrollCard'
-import './index.scss'
-import TrendingBanner from "./TrendingBanner"
+import HorizontalScrollCard from '../../components/cards/HorizontalScrollCard';
+import './index.scss';
+import TrendingBanner from "./TrendingBanner";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchConfiguration, fetchTrendingMovies } from '../../api/moviesApi';
-
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -20,9 +19,15 @@ const Home = () => {
         <div className="">
             <TrendingBanner />
 
-            <HorizontalScrollCard data={trendingMovies} heading={"Trending"} trending={true}/>
+            {status === "succeeded" && (
+                <HorizontalScrollCard
+                    data={trendingMovies}
+                    heading={"Trending"}
+                    trending={true}
+                />
+            )}
         </div>
-    )
+    );
 }
 
-export default Home
+export default Home;

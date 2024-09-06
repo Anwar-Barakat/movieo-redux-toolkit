@@ -1,13 +1,12 @@
+import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import CardMovie from './CardMovie';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
-import { useId } from 'react';
 
 const HorizontalScrollCard = ({ data = [], heading, trending, media_type }) => {
-  const swiperId = useId();
   return (
     <div className='container mx-auto px-3 my-10'>
       <h2 className='text-xl lg:text-2xl font-bold mb-3 text-white capitalize'>{heading}</h2>
@@ -42,5 +41,30 @@ const HorizontalScrollCard = ({ data = [], heading, trending, media_type }) => {
     </div>
   );
 }
+
+// Define prop types for validation
+HorizontalScrollCard.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      poster_path: PropTypes.string,
+      title: PropTypes.string,
+      name: PropTypes.string,
+      release_date: PropTypes.string,
+      vote_average: PropTypes.number,
+      media_type: PropTypes.string
+    })
+  ).isRequired,
+  heading: PropTypes.string.isRequired,
+  trending: PropTypes.bool,
+  media_type: PropTypes.string
+};
+
+// Define default props for the component
+HorizontalScrollCard.defaultProps = {
+  trending: false,
+  media_type: ''
+};
+
 
 export default HorizontalScrollCard;

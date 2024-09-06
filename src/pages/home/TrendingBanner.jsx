@@ -2,12 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchConfiguration, fetchTrendingMovies } from "../../api/moviesApi";
 import { ClipLoader } from "react-spinners";
-
-// Import Swiper and required modules
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, EffectCoverflow, Zoom } from "swiper/modules";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/zoom";
@@ -37,7 +33,10 @@ const TrendingBanner = () => {
                         modules={[Navigation, Autoplay, EffectCoverflow, Zoom]}
                         spaceBetween={30}
                         slidesPerView={1}
-                        navigation={{ nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }}
+                        navigation={{ 
+                            nextEl: ".trending-swiper-button-next", 
+                            prevEl: ".trending-swiper-button-prev" 
+                        }}
                         autoplay={{ delay: 5000, disableOnInteraction: false }}
                         loop={true}
                         speed={1000}
@@ -76,12 +75,12 @@ const TrendingBanner = () => {
                         ))}
                     </Swiper>
                 )}
-                <div className="swiper-button-prev custom-nav-button">
+                <div className="swiper-button-prev trending-swiper-button-prev custom-nav-button">
                     <svg className="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M15 19l-7-7 7-7" />
                     </svg>
                 </div>
-                <div className="swiper-button-next custom-nav-button">
+                <div className="swiper-button-next trending-swiper-button-next custom-nav-button">
                     <svg className="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M9 5l7 7-7 7" />
                     </svg>
@@ -92,3 +91,4 @@ const TrendingBanner = () => {
 };
 
 export default TrendingBanner;
+    
