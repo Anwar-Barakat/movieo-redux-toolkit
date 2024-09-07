@@ -6,11 +6,9 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const CardMovie = ({ movie = {}, trending = false, index = 0, media_type = '' }) => {
-    const imageURL = useSelector(state => state.trendingMoviesData.imageUrl);
-    console.log(imageURL + movie?.poster_path);
-    
-    const mediaType = movie.media_type ?? media_type;
+    const {  imageUrl } = useSelector((state) => state.trendingMovies);
 
+    const mediaType = movie.media_type ?? media_type;
     // Normalize the vote_average (assuming it's out of 10) to a percentage (out of 100)
     const voteAveragePercentage = (movie.vote_average || 0) * 10;
 
@@ -19,7 +17,7 @@ const CardMovie = ({ movie = {}, trending = false, index = 0, media_type = '' })
             {
                 movie?.poster_path ? (
                     <img
-                        src={imageURL + movie?.poster_path}
+                        src={imageUrl + movie?.poster_path}
                         alt={movie?.title || movie?.name}
                         className='w-full h-full object-cover'
                     />

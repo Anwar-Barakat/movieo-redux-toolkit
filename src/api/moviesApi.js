@@ -1,32 +1,27 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Fetch trending movies
-export const fetchTrendingMovies = createAsyncThunk('movies/fetchTrendingMovies', async (_, thunkAPI) => {
+// Utility function for API calls
+const fetchMoviesData = async (url, thunkAPI) => {
     try {
-        const response = await axios.get('/trending/all/week');
-        return response.data; // Return the data to be handled by the extraReducers
+        const response = await axios.get(url);
+        return response.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data);
     }
-});
+};
 
 // Fetch trending movies
-export const fetchNowPlayingMovies = createAsyncThunk('movies/nowPlayingMovies', async (_, thunkAPI) => {
-    try {
-        const response = await axios.get('/movie/now_playing');
-        return response.data; // Return the data to be handled by the extraReducers
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
-    }
-});
+export const fetchTrendingMovies = createAsyncThunk('movies/fetchTrendingMovies', (_, thunkAPI) =>
+    fetchMoviesData('/trending/all/week', thunkAPI)
+);
 
-export const fetchConfiguration = createAsyncThunk('movies/fetchConfiguration', async (_, thunkAPI) => {
-    try {
-        const response = await axios.get('/configuration');
-        return response.data; // Return the data to be handled by the extraReducers
+// Fetch now playing movies
+export const fetchNowPlayingMovies = createAsyncThunk('movies/fetchNowPlayingMovies', (_, thunkAPI) =>
+    fetchMoviesData('/movie/now_playing', thunkAPI)
+);
 
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
-    }
-});
+// Fetch configuration
+export const fetchConfiguration = createAsyncThunk('movies/fetchConfiguration', (_, thunkAPI) =>
+    fetchMoviesData('/configuration', thunkAPI)
+);

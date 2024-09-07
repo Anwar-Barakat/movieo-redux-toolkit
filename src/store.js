@@ -1,10 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit'
-import trendingMoviesSlice from './features/movies/trendingMoviesSlice.jsx'
-import nowPlayingMoviesSlice from './features/movies/nowPlayingMoviesSlice.jsx'
+import { configureStore } from '@reduxjs/toolkit';
+import moviesSlices from './features/movies/moviesSlice';
 
-export const store = configureStore({
+// Extract individual reducers from the default export of moviesSlices
+const { trendingMoviesReducer, nowPlayingMoviesReducer } = moviesSlices;
+
+const store = configureStore({
     reducer: {
-        trendingMoviesData: trendingMoviesSlice,
-        nowPlayingMoviesData: nowPlayingMoviesSlice,
+        trendingMovies: trendingMoviesReducer,
+        nowPlayingMovies: nowPlayingMoviesReducer,
+        // Add other reducers here if necessary
     },
-})
+});
+
+export default store;

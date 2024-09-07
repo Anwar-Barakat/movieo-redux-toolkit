@@ -1,52 +1,72 @@
 import { useEffect } from 'react';
-import HorizontalScrollCard from '../../components/cards/HorizontalScrollCard';
-import './index.scss';
-import TrendingBanner from "./TrendingBanner";
 import { useDispatch, useSelector } from 'react-redux';
+import TrendingBanner from './TrendingBanner';
 import { fetchConfiguration, fetchNowPlayingMovies, fetchTrendingMovies } from '../../api/moviesApi';
+import HorizontalScrollCard from '../../components/cards/HorizontalScrollCard';
+import './index.scss'
 
 const Home = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchTrendingMovies());
-        dispatch(fetchConfiguration());
-
         dispatch(fetchNowPlayingMovies());
+        dispatch(fetchConfiguration());
     }, [dispatch]);
 
-    const { trendingMovies, status, error, imageUrl } = useSelector((state) => state.trendingMoviesData);
-    const { nowPlayingMovies, nowPlayingStatus, nowPlayingError,
-        nowPlayingImageUrl
-    } = useSelector((state) => state.nowPlayingMoviesData);
+    const { movies: trendingMovies, status: trendingStatus, error: trendingError, imageUrl } = useSelector((state) => state.trendingMovies);
+    const { movies: nowPlayingMovies, status: nowPlayingStatus, error: nowPlayingError } = useSelector((state) => state.nowPlayingMovies);
 
-    console.log(nowPlayingMovies);
     
-
     return (
         <div className="">
             <TrendingBanner
                 trendingMovies={trendingMovies}
-                status={status}
-                error={error}
+                status={trendingStatus}
+                error={trendingError}
                 imageUrl={imageUrl}
             />
+            {
+                nowPlayingStatus === 'loading' ? (
+                    <div className='container mx-auto px-3 my-10'>
+                        <h2 className='text-xl lg:text-2xl font-bold mb-3 text-white capitalize'>Now Playing</h2>
+                        <p className='text-white'>Loading...</p>
+                    </div>
+                ) : nowPlayingStatus === 'error' ? (
+                    <div className='container mx-auto px-3 my-10'>
+                        <h2 className='text-xl lg:text-2xl font-bold mb-3 text-white capitalize'>Now Playing</h2>
+                        <p className='text-white'>{nowPlayingError}</p>
+                    </div>
+                ) : (
+                    <HorizontalScrollCard
+                        data={nowPlayingMovies}
+                        heading='Now Playing'
+                        media_type='movie'
+                    />
+                )
+            }
 
-            {status === "succeeded" && (
-                <HorizontalScrollCard
-                    data={trendingMovies}
-                    heading={"Trending"}
-                    trending={true}
-                />
-            )}
+            {
+                trendingStatus === 'loading' ? (
+                    <div className='container mx-auto px-3 my-10'>
+                        <h2 className='text-xl lg:text-2xl font-bold mb-3 text-white capitalize'>Trending</h2>
+                        <p className='text-white'>Loading...</p>
+                    </div>
+                ) : trendingStatus === 'error' ? (
+                    <div className='container mx-auto px-3 my-10'>
+                        <h2 className='text-xl lg:text-2xl font-bold mb-3 text-white capitalize'>Trending</h2>
+                        <p className='text-white'>{trendingError}</p>
+                    </div>
+                ) : (
+                    <HorizontalScrollCard
+                        data={trendingMovies}
+                        heading='Trending'
+                        trending
+                    />
+                )
+            }
 
-            {nowPlayingStatus === "succeeded" && (
-                <HorizontalScrollCard
-                    data={nowPlayingMovies}
-                    heading={"Now Playing"}
-                    trending={false}
-                />
-            )}
+
         </div>
     );
 }

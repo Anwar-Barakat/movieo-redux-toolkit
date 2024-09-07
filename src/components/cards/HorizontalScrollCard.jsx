@@ -4,7 +4,7 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import CardMovie from './CardMovie';
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6';
 
 const HorizontalScrollCard = ({
   data = [],
@@ -12,6 +12,7 @@ const HorizontalScrollCard = ({
   trending = false,
   media_type = ''
 }) => {
+
   return (
     <div className='container mx-auto px-3 my-10'>
       <h2 className='text-xl lg:text-2xl font-bold mb-3 text-white capitalize'>{heading}</h2>
@@ -22,16 +23,20 @@ const HorizontalScrollCard = ({
           spaceBetween={20} // Adjust space between slides
           slidesPerView={'auto'} // Allows multiple slides to be visible
           navigation={{
-            nextEl: `.swiper-button-next`,
-            prevEl: `.swiper-button-prev`,
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
           }}
           className='swiper-container'
         >
-          {data.map((movie, index) => (
+          {data.length > 0 ? data.map((movie, index) => (
             <SwiperSlide key={movie.id + "heading" + index} className='flex-shrink-0'>
               <CardMovie movie={movie} index={index + 1} trending={trending} media_type={media_type} />
             </SwiperSlide>
-          ))}
+          )) : (
+            <SwiperSlide className='flex-shrink-0'>
+              <p>No movies available</p>
+            </SwiperSlide>
+          )}
         </Swiper>
 
         <div className='absolute top-0 hidden lg:flex justify-between w-full h-full items-center'>
