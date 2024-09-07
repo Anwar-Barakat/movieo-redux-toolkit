@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -10,8 +11,12 @@ const HorizontalScrollCard = ({
   data = [],
   heading = '',
   trending = false,
-  media_type = ''
+  media_type = '',
+  navigationButtons
 }) => {
+  // Create refs for Swiper navigation buttons
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
 
   return (
     <div className='container mx-auto px-3 my-10'>
@@ -23,27 +28,34 @@ const HorizontalScrollCard = ({
           spaceBetween={20} // Adjust space between slides
           slidesPerView={'auto'} // Allows multiple slides to be visible
           navigation={{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: nextRef.current,
+            prevEl: prevRef.current,
           }}
           className='swiper-container'
+          onInit={(swiper) => {
+            // Update navigation buttons on Swiper initialization
+            nextRef.current = swiper.navigation.nextEl;
+            prevRef.current = swiper.navigation.prevEl;
+          }}
         >
-          {data.length > 0 ? data.map((movie, index) => (
-            <SwiperSlide key={movie.id + "heading" + index} className='flex-shrink-0'>
-              <CardMovie movie={movie} index={index + 1} trending={trending} media_type={media_type} />
+          {data.map((movie) => (
+            <SwiperSlide key={movie.id}>
+              <CardMovie movie={movie} trending={trending} media_type={media_type} />
             </SwiperSlide>
-          )) : (
-            <SwiperSlide className='flex-shrink-0'>
-              <p>No movies available</p>
-            </SwiperSlide>
-          )}
+          ))}
         </Swiper>
 
         <div className='absolute top-0 hidden lg:flex justify-between w-full h-full items-center'>
-          <button className='swiper-button-prev bg-white p-1 text-black rounded-full z-10'>
+          <button
+            ref={prevRef}
+            className='swiper-button-prev bg-white p-1 text-black rounded-full z-10'
+          >
             <FaAngleLeft />
           </button>
-          <button className='swiper-button-next bg-white p-1 text-black rounded-full z-10'>
+          <button
+            ref={nextRef}
+            className='swiper-button-next bg-white p-1 text-black rounded-full z-10'
+          >
             <FaAngleRight />
           </button>
         </div>
@@ -67,7 +79,11 @@ HorizontalScrollCard.propTypes = {
   ).isRequired,
   heading: PropTypes.string.isRequired,
   trending: PropTypes.bool,
-  media_type: PropTypes.string
+  media_type: PropTypes.string,
+  navigationButtons: PropTypes.shape({
+    prevRef: PropTypes.object,
+    nextRef: PropTypes.object
+  })
 };
 
 export default HorizontalScrollCard;
