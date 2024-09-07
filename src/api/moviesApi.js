@@ -21,6 +21,22 @@ export const fetchNowPlayingMovies = createAsyncThunk('movies/fetchNowPlayingMov
     fetchMoviesData('/movie/now_playing', thunkAPI)
 );
 
+// Fetch Popular movies
+export const fetchPopularMovies = createAsyncThunk('movies/fetchPopularMovies', (_, thunkAPI) =>
+    fetchMoviesData('/tv/popular', thunkAPI)
+);
+
+
+// Fetch Popular movies
+export const fetchTopRatedMovies = createAsyncThunk('movies/fetchTopRatedMovies', (_, thunkAPI) =>
+    fetchMoviesData('/movie/top_rated', thunkAPI)
+);
+
+// fetch upcoming movies
+export const fetchUpcomingMovies = createAsyncThunk('movies/fetchUpcomingMovies', (_, thunkAPI) =>
+    fetchMoviesData('/movie/upcoming', thunkAPI)
+);
+
 // Fetch configuration
 export const fetchConfiguration = createAsyncThunk('movies/fetchConfiguration', (_, thunkAPI) =>
     fetchMoviesData('/configuration', thunkAPI)
