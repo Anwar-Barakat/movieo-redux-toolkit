@@ -27,9 +27,9 @@ const HorizontalScrollCard = ({
           }}
           className='swiper-container'
         >
-          {data.map((data, index) => (
-            <SwiperSlide key={data.id + "heading" + index} className='flex-shrink-0'>
-              <CardMovie data={data} index={index + 1} trending={trending} media_type={media_type} />
+          {data.map((movie, index) => (
+            <SwiperSlide key={movie.id + "heading" + index} className='flex-shrink-0'>
+              <CardMovie movie={movie} index={index + 1} trending={trending} media_type={media_type} />
             </SwiperSlide>
           ))}
         </Swiper>

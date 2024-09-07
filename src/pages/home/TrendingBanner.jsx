@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchConfiguration, fetchTrendingMovies } from "../../api/moviesApi";
+import PropTypes from 'prop-types';
 import { ClipLoader } from "react-spinners";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, EffectCoverflow, Zoom } from "swiper/modules";
@@ -86,5 +84,23 @@ const TrendingBanner = ({
     );
 };
 
+// Define prop types for validation
+TrendingBanner.propTypes = {
+    trendingMovies: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            backdrop_path: PropTypes.string,
+            title: PropTypes.string,
+            name: PropTypes.string,
+            overview: PropTypes.string,
+            vote_average: PropTypes.number,
+            popularity: PropTypes.number,
+            media_type: PropTypes.string,
+        })
+    ).isRequired,
+    status: PropTypes.oneOf(['loading', 'succeeded', 'failed','idle']),
+    error: PropTypes.string,
+    imageUrl: PropTypes.string,
+};
+
 export default TrendingBanner;
-    
