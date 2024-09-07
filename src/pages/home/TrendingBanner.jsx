@@ -9,16 +9,12 @@ import "swiper/css/navigation";
 import "swiper/css/zoom";
 import { Link } from "react-router-dom";
 
-const TrendingBanner = () => {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchTrendingMovies());
-        dispatch(fetchConfiguration());
-    }, [dispatch]);
-
-    const { trendingMovies, status, error, imageUrl } = useSelector((state) => state.trendingMoviesData);
-
+const TrendingBanner = ({
+    trendingMovies = [],
+    status = "loading",
+    error = "",
+    imageUrl = "",
+}) => {
     return (
         <section className="w-full">
             <div className="lg:h-[100vh] h-[90vh] relative">

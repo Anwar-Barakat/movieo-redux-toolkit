@@ -6,7 +6,12 @@ import 'swiper/css/navigation';
 import CardMovie from './CardMovie';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 
-const HorizontalScrollCard = ({ data = [], heading, trending, media_type }) => {
+const HorizontalScrollCard = ({
+  data = [],
+  heading = '',
+  trending = false,
+  media_type = ''
+}) => {
   return (
     <div className='container mx-auto px-3 my-10'>
       <h2 className='text-xl lg:text-2xl font-bold mb-3 text-white capitalize'>{heading}</h2>
@@ -59,12 +64,5 @@ HorizontalScrollCard.propTypes = {
   trending: PropTypes.bool,
   media_type: PropTypes.string
 };
-
-// Define default props for the component
-HorizontalScrollCard.defaultProps = {
-  trending: false,
-  media_type: ''
-};
-
 
 export default HorizontalScrollCard;

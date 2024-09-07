@@ -17,7 +17,12 @@ const Home = () => {
 
     return (
         <div className="">
-            <TrendingBanner />
+            <TrendingBanner
+                trendingMovies={trendingMovies}
+                status={status}
+                error={error}
+                imageUrl={imageUrl}
+            />
 
             {status === "succeeded" && (
                 <HorizontalScrollCard
