@@ -35,26 +35,40 @@ const Home = () => {
             <HorizontalScrollCard
                 data={nowPlayingMovies}
                 heading='Now Playing'
+                loading={nowPlayingStatus === 'loading'}
+                error={nowPlayingStatus === 'failed' ? nowPlayingError : null}
                 media_type='movie'
             />
+
             <HorizontalScrollCard
                 data={trendingMovies}
                 heading='Trending'
+                loading={trendingStatus === 'loading'}
+                error={trendingStatus === 'failed' ? trendingError : null}
                 trending
             />
+
             <HorizontalScrollCard
                 data={popularMovies}
                 heading='Popular Movies'
+                loading={popularStatus === 'loading'}
+                error={popularStatus === 'failed' ? popularError : null}
                 media_type='movie'
             />
+
             <HorizontalScrollCard
                 data={topRatedMovies}
                 heading='Top Rated Movies'
+                loading={topRatedStatus === 'loading'}
+                error={topRatedStatus === 'failed' ? topRatedError : null}
                 media_type='movie'
             />
+
             <HorizontalScrollCard
                 data={upcomingMovies}
                 heading='Upcoming Movies'
+                loading={upcomingStatus === 'loading'}
+                error={upcomingStatus === 'failed' ? upcomingError : null}
                 media_type='movie'
             />
         </div>

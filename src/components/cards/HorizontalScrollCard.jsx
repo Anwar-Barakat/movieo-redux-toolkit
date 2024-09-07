@@ -10,11 +10,11 @@ import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6';
 const HorizontalScrollCard = ({
   data = [],
   heading = '',
+  loading = false,
+  error = null,
   trending = false,
-  media_type = '',
-  navigationButtons
+  media_type = ''
 }) => {
-  // Create refs for Swiper navigation buttons
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -22,44 +22,52 @@ const HorizontalScrollCard = ({
     <div className='container mx-auto px-3 my-10'>
       <h2 className='text-xl lg:text-2xl font-bold mb-3 text-white capitalize'>{heading}</h2>
 
-      <div className='relative'>
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={20} // Adjust space between slides
-          slidesPerView={'auto'} // Allows multiple slides to be visible
-          navigation={{
-            nextEl: nextRef.current,
-            prevEl: prevRef.current,
-          }}
-          className='swiper-container'
-          onInit={(swiper) => {
-            // Update navigation buttons on Swiper initialization
-            nextRef.current = swiper.navigation.nextEl;
-            prevRef.current = swiper.navigation.prevEl;
-          }}
-        >
-          {data.map((movie) => (
-            <SwiperSlide key={movie.id}>
-              <CardMovie movie={movie} trending={trending} media_type={media_type} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        <div className='absolute top-0 hidden lg:flex justify-between w-full h-full items-center'>
-          <button
-            ref={prevRef}
-            className='swiper-button-prev bg-white p-1 text-black rounded-full z-10'
-          >
-            <FaAngleLeft />
-          </button>
-          <button
-            ref={nextRef}
-            className='swiper-button-next bg-white p-1 text-black rounded-full z-10'
-          >
-            <FaAngleRight />
-          </button>
+      {loading ? (
+        <div className='flex flex-col items-center'>
+          <div className='spinner'></div> {/* Loading spinner */}
+          <div className='text-white mt-3'>Loading...</div>
         </div>
-      </div>
+      ) : error ? (
+        <div className='text-white text-center'>Error: {error}</div>
+      ) : (
+        <div className='relative'>
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={20}
+            slidesPerView={'auto'}
+            navigation={{
+              nextEl: nextRef.current,
+              prevEl: prevRef.current,
+            }}
+            className='swiper-container'
+            onInit={(swiper) => {
+              nextRef.current = swiper.navigation.nextEl;
+              prevRef.current = swiper.navigation.prevEl;
+            }}
+          >
+            {data.map((movie) => (
+              <SwiperSlide key={movie.id}>
+                <CardMovie movie={movie} trending={trending} media_type={media_type} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <div className='absolute top-0 hidden lg:flex justify-between w-full h-full items-center'>
+            <button
+              ref={prevRef}
+              className='swiper-button-prev bg-white p-1 text-black rounded-full z-10'
+            >
+              <FaAngleLeft />
+            </button>
+            <button
+              ref={nextRef}
+              className='swiper-button-next bg-white p-1 text-black rounded-full z-10'
+            >
+              <FaAngleRight />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -78,12 +86,10 @@ HorizontalScrollCard.propTypes = {
     })
   ).isRequired,
   heading: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
   trending: PropTypes.bool,
   media_type: PropTypes.string,
-  navigationButtons: PropTypes.shape({
-    prevRef: PropTypes.object,
-    nextRef: PropTypes.object
-  })
 };
 
 export default HorizontalScrollCard;
