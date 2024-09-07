@@ -7,7 +7,8 @@ import 'react-circular-progressbar/dist/styles.css';
 
 const CardMovie = ({ movie = {}, trending = false, index = 0, media_type = '' }) => {
     const imageURL = useSelector(state => state.trendingMoviesData.imageUrl);
-
+    console.log(imageURL + movie?.poster_path);
+    
     const mediaType = movie.media_type ?? media_type;
 
     // Normalize the vote_average (assuming it's out of 10) to a percentage (out of 100)
@@ -41,7 +42,7 @@ const CardMovie = ({ movie = {}, trending = false, index = 0, media_type = '' })
                 <h2 className='text-ellipsis line-clamp-1 text-lg font-semibold'>{movie?.title || movie?.name}</h2>
                 <div className='text-sm text-neutral-400 flex justify-between items-center gap-2'>
                     <p>{moment(movie.release_date).format("MMMM Do YYYY")}</p>
-                    <div className='w-12 h-12'>
+                    <div className='w-10 h-10'>
                         <CircularProgressbar
                             value={voteAveragePercentage}
                             text={`${Number(movie.vote_average).toFixed(1)}`}

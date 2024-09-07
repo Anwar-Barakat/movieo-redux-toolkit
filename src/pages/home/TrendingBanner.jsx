@@ -6,6 +6,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/zoom";
 import { Link } from "react-router-dom";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { useRef } from 'react';
 
 const TrendingBanner = ({
     trendingMovies = [],
@@ -13,6 +16,9 @@ const TrendingBanner = ({
     error = "",
     imageUrl = "",
 }) => {
+    // Create a reference for the Swiper instance
+    const swiperRef = useRef(null);
+
     return (
         <section className="w-full">
             <div className="lg:h-[100vh] h-[90vh] relative">
@@ -24,6 +30,7 @@ const TrendingBanner = ({
                 {status === "failed" && <p>{error}</p>}
                 {status === "succeeded" && (
                     <Swiper
+                        ref={swiperRef}
                         modules={[Navigation, Autoplay, EffectCoverflow, Zoom]}
                         spaceBetween={30}
                         slidesPerView={1}
@@ -51,30 +58,42 @@ const TrendingBanner = ({
                                             {movie?.title || movie?.name}
                                         </h2>
                                         <p className="text-white text-ellipsis line-clamp-3">{movie.overview}</p>
-                                        <div className="flex justify-center w-full gap-4 text-white">
+                                        <div className="flex justify-center w-full gap-4 items-center text-white">
+                                            <div className='w-16 h-16'>
+                                                <CircularProgressbar
+                                                    value={movie.vote_average * 10}
+                                                    text={`${Number(movie.vote_average).toFixed(1)}`}
+                                                    styles={buildStyles({
+                                                        textSize: '32px',
+                                                        pathColor: movie.vote_average > 5 ? 'green' : 'red',
+                                                        textColor: '#fff',
+                                                        trailColor: '#d6d6d6',
+                                                        strokeLinecap: 'round',
+                                                        pathTransitionDuration: 0.5,
+                                                    })}
+                                                />
+                                            </div>
                                             <div className="flex gap-2">
-                                                <p>Rating: {Number(movie.vote_average).toFixed(1)}+</p>
-                                                <span>|</span>
                                                 <p>View: {Number(movie.popularity).toFixed(0)}</p>
                                             </div>
+                                            <Link to={`/${movie?.media_type}/${movie.id}`}>
+                                                <button className="main__btn shadow-md">
+                                                    Play Now
+                                                </button>
+                                            </Link>
                                         </div>
-                                        <Link to={`/${movie?.media_type}/${movie.id}`}>
-                                            <button className="main__btn shadow-md">
-                                                Play Now
-                                            </button>
-                                        </Link>
                                     </div>
                                 </div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
                 )}
-                <div className="swiper-button-prev trending-swiper-button-prev custom-nav-button">
+                <div className="swiper-button-prev trending-swiper-button-prev custom-nav-button" onClick={() => swiperRef.current.swiper.slidePrev()}>
                     <svg className="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M15 19l-7-7 7-7" />
                     </svg>
                 </div>
-                <div className="swiper-button-next trending-swiper-button-next custom-nav-button">
+                <div className="swiper-button-next trending-swiper-button-next custom-nav-button" onClick={() => swiperRef.current.swiper.slideNext()}>
                     <svg className="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M9 5l7 7-7 7" />
                     </svg>
@@ -98,7 +117,7 @@ TrendingBanner.propTypes = {
             media_type: PropTypes.string,
         })
     ).isRequired,
-    status: PropTypes.oneOf(['loading', 'succeeded', 'failed','idle']),
+    status: PropTypes.oneOf(['loading', 'succeeded', 'failed', 'idle']),
     error: PropTypes.string,
     imageUrl: PropTypes.string,
 };
