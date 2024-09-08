@@ -2,9 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Utility function for API calls
-const fetchMoviesData = async (url, thunkAPI) => {
+const fetchMoviesData = async (url, thunkAPI, pageNo) => {
     try {
-        const response = await axios.get(url);
+        const response = await axios.get(url, {
+            params : {
+                page : pageNo
+              }
+        });
         return response.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data);
@@ -38,10 +42,10 @@ export const fetchUpcomingMovies = createAsyncThunk('movies/fetchUpcomingMovies'
 );
 
 
-export const fetchExploreData = createAsyncThunk('movies/fetchExploreData', async ({exploreType, page = 1}, thunkAPI) => {
+export const fetchExploreData = createAsyncThunk('movies/fetchExploreData', async ({exploreType, page =1}, thunkAPI) => {
     console.log(exploreType);
 
-    const url = exploreType === 'tv' ? '/discover/tv' : '/discover/movie';
+    const url = exploreType === 'tv' ? `/discover/tv?page=${page}` : `/discover/movie?page=${page}`;
 
     return fetchMoviesData(url, thunkAPI, page);
 });

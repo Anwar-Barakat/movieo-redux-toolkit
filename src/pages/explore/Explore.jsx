@@ -8,14 +8,17 @@ const Explore = () => {
     const { explore } = useParams(); // type can be 'movie' or 'tv'
     const dispatch = useDispatch();
 
-    console.log(explore,'explore 01');
-    
-
     useEffect(() => {
         dispatch(fetchExploreData({ exploreType: explore }));
     }, [dispatch, explore]);
     
     const {movies: exploreMovies, status: exploreStatus, error: exploreError} = useSelector((state) => state.exploreMovies);
+
+    console.log(
+        exploreMovies,
+        exploreStatus,
+        exploreError
+    );
     
 
     return (
