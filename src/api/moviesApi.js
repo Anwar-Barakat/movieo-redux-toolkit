@@ -37,6 +37,15 @@ export const fetchUpcomingMovies = createAsyncThunk('movies/fetchUpcomingMovies'
     fetchMoviesData('/movie/upcoming', thunkAPI)
 );
 
+
+export const fetchExploreData = createAsyncThunk('movies/fetchExploreData', async ({exploreType, page = 1}, thunkAPI) => {
+    console.log(exploreType);
+
+    const url = exploreType === 'tv' ? '/discover/tv' : '/discover/movie';
+
+    return fetchMoviesData(url, thunkAPI, page);
+});
+
 // Fetch configuration
 export const fetchConfiguration = createAsyncThunk('movies/fetchConfiguration', (_, thunkAPI) =>
     fetchMoviesData('/configuration', thunkAPI)

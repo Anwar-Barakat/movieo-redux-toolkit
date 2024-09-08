@@ -1,6 +1,6 @@
 // src/features/movies/moviesSlice.jsx
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTrendingMovies, fetchNowPlayingMovies, fetchPopularMovies, fetchTopRatedMovies, fetchUpcomingMovies } from '../../api/moviesApi';
+import { fetchTrendingMovies, fetchNowPlayingMovies, fetchPopularMovies, fetchTopRatedMovies, fetchUpcomingMovies, fetchExploreData } from '../../api/moviesApi';
 
 const createMovieSlice = (name, fetchMovieAction) => createSlice({
     name,
@@ -36,6 +36,7 @@ export const popularMoviesSlice = createMovieSlice('popularMovies', fetchPopular
 export const nowPlayingMoviesSlice = createMovieSlice('nowPlayingMovies', fetchNowPlayingMovies);
 export const fetchTopRatedMoviesSlice = createMovieSlice('nowPlayingMovies', fetchTopRatedMovies);
 export const fetchUpcomingMoviesSlice = createMovieSlice('upcomingMovies', fetchUpcomingMovies);
+export const exploreMoviesSlice = createMovieSlice('exploreMovies', fetchExploreData);
 
 export const { setImageUrl } = trendingMoviesSlice.actions;
 export const { setImageUrl: setNowPlayingImageUrl } = nowPlayingMoviesSlice.actions;
@@ -46,4 +47,5 @@ export default {
     popularMoviesReducer: popularMoviesSlice.reducer,
     topRatedMoviesReducer: fetchTopRatedMoviesSlice.reducer,
     upcomingMoviesReducer: fetchUpcomingMoviesSlice.reducer,
+    exploreMoviesReducer: exploreMoviesSlice.reducer,
 };

@@ -28,7 +28,7 @@ const Header = () => {
     }, [searchInput, navigate]);
 
     return (
-        <header className='fixed top-0 w-full h-16 bg-black bg-opacity-75 z-40'>
+        <header className='top-0 w-full h-16 bg-black bg-opacity-75 z-40'>
             <div className="container mx-auto flex__between h-full px-3">
                 <Link to={`/`} className="text-white font-bold text-xl">
                     <img src={logo} alt="logo" width={120} />
