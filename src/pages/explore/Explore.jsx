@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchExploreData } from "../../api/moviesApi";
+import { fetchExploreMovies } from "../../api/moviesApi";
 import { useEffect } from "react";
 import CardMovie from "../../components/cards/CardMovie";
 
@@ -9,15 +9,13 @@ const Explore = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchExploreData({ exploreType: explore }));
+        dispatch(fetchExploreMovies({ exploreType: explore }));
     }, [dispatch, explore]);
     
     const {movies: exploreMovies, status: exploreStatus, error: exploreError} = useSelector((state) => state.exploreMovies);
 
     console.log(
         exploreMovies,
-        exploreStatus,
-        exploreError
     );
     
 

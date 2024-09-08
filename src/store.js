@@ -8,7 +8,8 @@ const {
     popularMoviesReducer,
     topRatedMoviesReducer,
     upcomingMoviesReducer,
-    exploreMoviesReducer
+    exploreMoviesReducer,
+    searchMoviesReducer,
 } = moviesSlices;
 
 const store = configureStore({
@@ -18,7 +19,8 @@ const store = configureStore({
         popularMovies: popularMoviesReducer,
         topRatedMovies: topRatedMoviesReducer,
         upcomingMovies: upcomingMoviesReducer,
-        exploreMovies : exploreMoviesReducer,
+        exploreMovies: exploreMoviesReducer,
+        searchMovies : searchMoviesReducer
     },
 });
 
