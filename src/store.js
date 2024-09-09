@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import moviesSlices from "./features/movies/moviesSlice";
+import movieDetailReducer from './features/movies/movieDetailSlice';
 
-// Extract individual reducers from the default export of moviesSlices
 const {
     trendingMoviesReducer,
     nowPlayingMoviesReducer,
@@ -20,7 +20,8 @@ const store = configureStore({
         topRatedMovies: topRatedMoviesReducer,
         upcomingMovies: upcomingMoviesReducer,
         exploreMovies: exploreMoviesReducer,
-        searchMovies : searchMoviesReducer
+        searchMovies: searchMoviesReducer,
+        movieDetail: movieDetailReducer,
     },
 });
 

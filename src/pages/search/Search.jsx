@@ -6,14 +6,8 @@ import CardMovie from "../../components/cards/CardMovie";
 
 const Search = () => {
     const dispatch = useDispatch()
-
     const location = useLocation()
-    const [data, setData] = useState([])
-    const [page, setPage] = useState(1)
     const navigate = useNavigate()
-
-    
-
     const query = location?.search?.slice(3)
 
     useEffect(() => {
@@ -21,14 +15,6 @@ const Search = () => {
     }, [query]);
 
     const { movies: searchMovies, status: searchStatus, error: searchError } = useSelector((state) => state.searchMovies);
-
-    console.log(
-        searchMovies,
-        searchStatus,
-        searchError,
-        query
-    );
-
 
     return (
         <div className='py-16'>
