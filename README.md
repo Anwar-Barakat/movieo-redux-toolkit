@@ -1,8 +1,19 @@
-# React + Vite
+# Movies App using React.js and Redux Toolkit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Movies App](https://raw.githubusercontent.com/IsAmitprajapati/movieoapp/main/thumnail.png)
 
-Currently, two official plugins are available:
+## Pages:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Home Page**  
+   - Displays trending movies, categories, and a featured movie.
+
+2. **Detail Page**  
+   - Shows detailed information about a selected movie, including cast and recommendations.
+
+3. **Search Page**  
+   - Allows users to search for movies and displays search results dynamically.
+
+## Tools:
+- **React.js** for the frontend.
+- **Redux Toolkit** with `createAsyncThunk` for state management and API requests.
+- **MovieDB API** for fetching movie data.
